@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchor" prefHeight="680.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLDocumentController">
+   <children>
+      <Button fx:id="exitButton" layoutX="420.0" layoutY="400.0" mnemonicParsing="false" onAction="#exitButtonAction" prefHeight="80.0" prefWidth="160.0" text="Wyjdź" />
+      <Button fx:id="startButton" layoutX="420.0" layoutY="200.0" mnemonicParsing="false" onAction="#startButtonAction" prefHeight="80.0" prefWidth="160.0" text="Start" AnchorPane.topAnchor="200.0" />
+      
+      <ImageView fx:id="redBlock" fitHeight="20.0" fitWidth="20.0" focusTraversable="true" layoutX="131.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Grafika/czerwony.png" />
+         </image>
+         <viewport>
+            <Rectangle2D height="20.0" width="20.0" />
+         </viewport>
+      </ImageView>
+      
+      <ImageView fx:id="tank1" fitHeight="57.0" fitWidth="160.0" focusTraversable="true" layoutX="-1.0" layoutY="623.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Grafika/czołg.png" />
+         </image>
+         <viewport>
+            <Rectangle2D height="57.0" width="30.0" />
+         </viewport>
+      </ImageView>
+      
+      <ImageView fx:id="tank2" fitHeight="57.0" fitWidth="37.0" focusTraversable="true" layoutY="623.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Grafika/czołg.png" />
+         </image>
+         <viewport>
+            <Rectangle2D height="60.0" width="30.0" />
+         </viewport>
+      </ImageView>
+      <Pane fx:id="pointsPane" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="1000.0">
+         <children>
+            <Pane fx:id="leftPlayerPoints" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <Label fx:id="textNumberOfPlayerPoints" layoutX="40.0" layoutY="40.0" prefHeight="20.0" prefWidth="200.0" />
+                  <Label fx:id="numberOfPlayerPoints" layoutX="260.0" layoutY="40.0" prefHeight="20.0" prefWidth="100.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="rightPlayerPoints" layoutX="600.0" prefHeight="100.0" prefWidth="400.0">
+               <children>
+                  <Label fx:id="textNumberOfPlayerPoints2" layoutX="40.0" layoutY="40.0" prefHeight="20.0" prefWidth="200.0" />
+                  <Label fx:id="numberOfPlayerPoints2" layoutX="260.0" layoutY="40.0" prefHeight="20.0" prefWidth="100.0" />
+               </children>
+            </Pane>
+            <Pane fx:id="buttonsPane" layoutX="400.0" layoutY="0.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="saveButton" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveButtonAction" prefHeight="25.0" prefWidth="100.0" text="Zapisz wynik" />
+                  <Button fx:id="exitButton2" layoutX="50.0" layoutY="50.0" mnemonicParsing="false" onAction="#exitButtonAction2" prefHeight="25.0" prefWidth="100.0" text="Wyjdź" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
