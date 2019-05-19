@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+
 
 
 public class FXMLDocumentController implements Initializable {
@@ -80,7 +82,8 @@ public class FXMLDocumentController implements Initializable {
 			player1.moveRight(tank1);
 		}
 	}
-	
+
+
 	@FXML
 	private void exitButtonAction(ActionEvent event) {
 	System.exit(0);
