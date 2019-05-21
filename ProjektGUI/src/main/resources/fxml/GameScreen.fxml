@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.StackPane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GameController">
+   <children>
+      <Pane prefHeight="100.0" prefWidth="1000.0">
+         <children>
+            <Button fx:id="extiButton" layoutX="450.0" layoutY="60.0" mnemonicParsing="false" onAction="#exitButtonAction" prefHeight="30.0" prefWidth="100.0" text="Wyjdź">
+               <font>
+                  <Font name="Cambria Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="450.0" layoutY="15.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Zapisz Wynik">
+               <font>
+                  <Font name="Cambria Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="textLeftPlayerPoints" contentDisplay="CENTER" prefHeight="100.0" prefWidth="200.0" text="   Punkty Gracza 1" textAlignment="CENTER">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="leftPlayerPoints" layoutX="300.0" prefHeight="100.0" prefWidth="112.0" text="0" textAlignment="CENTER" textFill="#0400ff">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="textRightPlayerPoints" layoutX="600.0" prefHeight="100.0" prefWidth="200.0" text="   Punkty Gracza 2">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="rightPlayerPoints" layoutX="900.0" prefHeight="100.0" prefWidth="200.0" text="0" textFill="#0400ff">
+               <font>
+                  <Font name="Cambria" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</Pane>
