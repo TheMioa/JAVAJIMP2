@@ -14,7 +14,6 @@ public class ButtonPanel extends JPanel implements ActionListener{
 	public static final int WIDTH = 400;
 	private JButton startButton;
 	private JButton exitButton;
-	public static boolean start = false;
 	
 	static ActionFrame af = new ActionFrame();
 	
@@ -39,7 +38,6 @@ public class ButtonPanel extends JPanel implements ActionListener{
 		if(source == startButton) {
 			JFrame ex = new Animation(af);
 			ex.setVisible(true);
-			start = true;
 
 		}
 
@@ -48,16 +46,11 @@ public class ButtonPanel extends JPanel implements ActionListener{
 
 	}
 	public static void main(String[] args) {
-		//ActionFrame af = new ActionFrame();
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-			//	long startTime = System.currentTimeMillis();
-				//ActionFrame af = new ActionFrame();
 				af.setVisible(true);
-	
-				}
-				
+				}	
 		});
 	}
 	public void setMainController(ActionFrame actionFrame) {

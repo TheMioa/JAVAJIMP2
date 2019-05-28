@@ -9,20 +9,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Blocks.Blocks;
+import Blocks.BlueBlock;
+import Blocks.GreenBlock;
 import Blocks.RedBlock;
 import Blocks.YellowBlock;
 import Objects.Tank;
 
 public class Board extends JPanel implements Runnable {
 
-	private static final long serialVersionUID = 1L;
 	private final int B_WIDTH = 1000;
 	private final int B_HEIGHT = 600;
 	private final int INITIAL_Y = -40;
 	private final int DELAY = 25;
 	private final int NUMBEROFTANKS = 2;
-	private final int NUMBEROFREDBLOCKS = 4;
-	private final int NUMBEROFYELLOWBLOCKS = 6;
+	private final int NUMBEROFREDBLOCKS = 2;
+	private final int NUMBEROFYELLOWBLOCKS = 4;
+	private final int NUMBEROFGREENBLOCKS = 6;
+	private final int NUMBEROFBLUEBLOCKS = 8;
 	private final int BULLETBUF = -100;
 
 	int i = 0;
@@ -51,46 +54,68 @@ public class Board extends JPanel implements Runnable {
 
 	}
 
-	public void initRnd() {
+	public int initRnd() {
 		rnd = random.nextInt(4);
 		if (rnd == 0) {
 			typeX = 1;
 			typeY = 0;
 		}
 		if (rnd == 1) {
-			typeX = -1;
-			typeY = 0;
-		}
-		if (rnd == 2) {
 			typeX = 0;
 			typeY = 1;
+		}
+		if (rnd == 2) {
+			typeX = -1;
+			typeY =  0;
 		}
 		if (rnd == 3) {
 			typeX = 0;
 			typeY = -1;
 		}
+		return rnd;
 	}
 
 	public Tank tank[] = new Tank[2];
 	public RedBlock redBlock[] = new RedBlock[NUMBEROFREDBLOCKS];
 	public YellowBlock yellowBlock[] = new YellowBlock[NUMBEROFYELLOWBLOCKS];
+	public GreenBlock greenBlock[] = new GreenBlock[NUMBEROFGREENBLOCKS];
+	public BlueBlock blueBlock[] = new BlueBlock[NUMBEROFBLUEBLOCKS];
 
 	int j = 0;
-
+	int rememberedRnd = initRnd();
+	int presentInt = initRnd();
+	
 	public void initBlocks() {
 		for (i = 0; i < NUMBEROFREDBLOCKS; i++) {
 			redBlock[i] = new RedBlock(random.nextInt(B_WIDTH - 100) + 50, INITIAL_Y - 150 * (j++));
 		}
 		for (i = 0; i < NUMBEROFYELLOWBLOCKS; i = i + 2) {
 			yellowBlock[i] = new YellowBlock(random.nextInt(B_WIDTH - 100) + 50, INITIAL_Y - 150 * (j++));
+			initRnd();
 			yellowBlock[i + 1] = new YellowBlock(yellowBlock[i].getX() + typeX * yellowBlock[i].getDx(),
 					yellowBlock[i].getY() + typeY * yellowBlock[i].getDy());
 		}
+		j=0;
+		for (i = 0; i < NUMBEROFGREENBLOCKS; i = i + 3) {
+			greenBlock[i] = new GreenBlock(random.nextInt(B_WIDTH - 100), INITIAL_Y - 150 * (j++));
+			rememberedRnd = initRnd();
+			greenBlock[i+1] = new GreenBlock(greenBlock[i].getX() + typeX * greenBlock[i].getDx(),
+					greenBlock[i].getY() + typeY * greenBlock[i].getDy());
+			presentInt = initRnd();
+			while (rememberedRnd == presentInt-2 || rememberedRnd == presentInt+2) {
+				presentInt = initRnd();
+			}
+			greenBlock[i+2] = new GreenBlock(greenBlock[i+1].getX() + typeX * greenBlock[i+1].getDx(),
+					greenBlock[i+1].getY() + typeY * greenBlock[i+1].getDy());
+		}
+	//	for (i = 0; i < NUMBEROFBLUEBLOCKS; i = i + 4) {
+				
+	//	} 
 	}
 
 	public void initTanks() {
-		tank[0] = new Tank(300, 540);
-		tank[1] = new Tank(700, 540);
+		tank[0] = new Tank(300, B_HEIGHT-50);
+		tank[1] = new Tank(700, B_HEIGHT-50);
 	}
 
 	{
@@ -119,6 +144,9 @@ public class Board extends JPanel implements Runnable {
 		}
 		for (i = 0; i < NUMBEROFYELLOWBLOCKS; i++) {
 			g.drawImage(yellowBlock[i].getBlock(), yellowBlock[i].getX(), yellowBlock[i].getY(), this);
+		}
+		for (i = 0; i < NUMBEROFGREENBLOCKS; i++) {
+			g.drawImage(greenBlock[i].getBlock(), greenBlock[i].getX(), greenBlock[i].getY(), this);
 		}
 		for (i = 0; i < NUMBEROFTANKS; i++) {
 			for (int j = 0; j < tank[i].getNUMBEROFBULLETS(); j++) {
@@ -164,6 +192,9 @@ public class Board extends JPanel implements Runnable {
 		for (i = 0; i < NUMBEROFYELLOWBLOCKS; i++) {
 			yellowBlock[i].setY(yellowBlock[i].getY() + 3);
 		}
+		for (i = 0; i < NUMBEROFGREENBLOCKS; i++) {
+			greenBlock[i].setY(greenBlock[i].getY() + 3);
+		}
 		for (i = 0; i < NUMBEROFREDBLOCKS; i++) {
 			if (redBlock[i].getY() > B_HEIGHT || collision(tank[0], redBlock[i], 0) || collision(tank[1], redBlock[i], 1)) {
 				redBlock[i].setY(INITIAL_Y);
@@ -186,6 +217,47 @@ public class Board extends JPanel implements Runnable {
 			}
 			if(yellowBlock[i].getHp() > yellowBlock[i+1].getHp()) {
 				yellowBlock[i].setHp(yellowBlock[i+1].getHp());
+			}
+		}
+		for (i = 0; i < NUMBEROFGREENBLOCKS; i = i + 3) {
+			if (greenBlock[i].getY() > B_HEIGHT || collision(tank[0], greenBlock[i], 0) || collision(tank[1], greenBlock[i], 1)
+					|| collision(tank[0], greenBlock[i+1], 0) || collision(tank[1], greenBlock[i+1], 1)
+					|| collision(tank[0], greenBlock[i+2], 0) || collision(tank[1], greenBlock[i+2], 1)) {
+				greenBlock[i].setY(INITIAL_Y);
+				greenBlock[i].setX(random.nextInt(950));
+				rememberedRnd = initRnd();
+				greenBlock[i + 1].setY(greenBlock[i].getY() + typeY * greenBlock[i].getDy());
+				greenBlock[i + 1].setX(greenBlock[i].getX() + typeX * greenBlock[i].getDx());
+				greenBlock[i].setHp(2);
+				greenBlock[i+1].setHp(2);
+				presentInt = initRnd();
+				while (rememberedRnd == presentInt-2 || rememberedRnd == presentInt+2) {
+					presentInt = initRnd();
+				}
+				greenBlock[i+2] = new GreenBlock(greenBlock[i+1].getX() + typeX * greenBlock[i+1].getDx(),
+				greenBlock[i+1].getY() + typeY * greenBlock[i+1].getDy());
+				greenBlock[i].setHp(3);
+				greenBlock[i+1].setHp(3);
+				greenBlock[i+2].setHp(3);
+				
+			}
+			if(greenBlock[i].getHp() < greenBlock[i+1].getHp()) {
+				greenBlock[i+1].setHp(greenBlock[i].getHp());
+			}
+			if(greenBlock[i].getHp() < greenBlock[i+2].getHp()) {
+				greenBlock[i+2].setHp(greenBlock[i].getHp());
+			}
+			if(greenBlock[i+1].getHp() < greenBlock[i+2].getHp()) {
+				greenBlock[i+2].setHp(greenBlock[i+1].getHp());
+			}
+			if(greenBlock[i].getHp() > greenBlock[i+1].getHp()) {
+				greenBlock[i].setHp(greenBlock[i+1].getHp());
+			}
+			if(greenBlock[i].getHp() > greenBlock[i+2].getHp()) {
+				greenBlock[i].setHp(greenBlock[i+2].getHp());
+			}
+			if(greenBlock[i+1].getHp() > greenBlock[i+2].getHp()) {
+				greenBlock[i+1].setHp(greenBlock[i+2].getHp());
 			}
 		}
 

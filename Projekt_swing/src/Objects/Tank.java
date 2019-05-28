@@ -41,7 +41,7 @@ public class Tank  {
 		{
 			if(bullet[j].getX()== bulletBUF) {
 				bullet[j].setyMove(5);
-				bullet[j].setY(this.y+this.dy/2-bullet[j].getDy()/2);
+				bullet[j].setY(this.y-bullet[j].getDy()/2);
 				bullet[j].setX(this.x+this.dx/2-bullet[j].getDx()/2);
 				break;
 			}
