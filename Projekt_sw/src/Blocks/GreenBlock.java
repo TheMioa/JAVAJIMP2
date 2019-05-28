@@ -11,7 +11,7 @@ public class GreenBlock extends Blocks {
 		setBlock(icon.getImage());
 		setDx(icon.getIconWidth());
 		setDy(icon.getIconHeight());
-		setPoints(4);
+		setPoints(5);
 		setHp(3);
 	}
 }

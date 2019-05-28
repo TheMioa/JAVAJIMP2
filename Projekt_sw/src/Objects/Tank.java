@@ -14,7 +14,7 @@ public class Tank  {
 	private int dy;
 	private boolean tankMoveRight = false;
 	private boolean tankMoveLeft = false;
-	private final int NUMBEROFBULLETS = 10;
+	private final int NUMBEROFBULLETS = 7;
 	private final int bulletBUF = -100;
 	public Bullets bullet[] = new Bullets[NUMBEROFBULLETS];
 	public Gun gun = new Gun(-100,-100);
